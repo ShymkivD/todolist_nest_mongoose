@@ -17,10 +17,8 @@ export class TodoService {
     const id = shortid.generate();
     await this.userModel
       .findById(userId)
-      .updateOne(
-        { $push: { todos: { title, date, done, id } } },
-        { new: true }
-      );
+      .updateOne({ $push: { todos: { title, date, done, id } } });
+
     return { title, date, done, id };
   }
 

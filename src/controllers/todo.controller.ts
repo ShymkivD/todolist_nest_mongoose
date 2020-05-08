@@ -8,6 +8,7 @@ import {
   Put,
   Req,
   UseGuards,
+  ValidationPipe,
 } from "@nestjs/common";
 import { TodoService } from "../services/todo.service";
 import { Todo } from "../models/todo/todo.interface";
@@ -21,22 +22,26 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  async create(@Body() createTodoDto: TodoDto, @Req() req): Promise<Todo> {
-    return await this.todoService.create(req.user.userId, createTodoDto);
+  async create(
+    @Body(ValidationPipe) createTodoDto: TodoDto,
+    @Req() req
+  ): Promise<Todo> {
+    return this.todoService.create(req.user.userId, createTodoDto);
   }
 
   @Get()
   async findAll(@Req() req): Promise<Todo[]> {
     return this.todoService.findAll(req.user.userId);
   }
+
+  @Get("findByDate")
+  async findAllByDate(@Req() req): Promise<Todo[]> {
+    return this.todoService.findAllByDate(req.user.userId);
+  }
+
   @Get(":id")
   async findOneTodo(@Param() params, @Req() req): Promise<Todo> {
     return this.todoService.findOneTodo(params.id, req.user.userId);
-  }
-
-  @Get("findAllByDate")
-  async findAllByDate(@Req() req): Promise<Todo[]> {
-    return this.todoService.findAllByDate(req.user.userId);
   }
 
   @Delete(":id")

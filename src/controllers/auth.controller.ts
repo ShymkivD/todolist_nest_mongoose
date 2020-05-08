@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, Res, Session } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  Session,
+  ValidationPipe,
+} from "@nestjs/common";
 import { AuthService } from "../services/auth.service";
 import { UserAuthDto } from "../models/user/user.auth.dto";
 
@@ -8,7 +17,7 @@ export class AuthController {
 
   // Регистрировать пользователей
   @Post("register")
-  async register(@Body() user: UserAuthDto, @Res() res) {
+  async register(@Body(ValidationPipe) user: UserAuthDto, @Res() res) {
     const regRes = await this.authService.register(user).then((res) => res);
 
     if (regRes.msg === "USERNAME IS ALREADY TAKEN")
@@ -24,7 +33,7 @@ export class AuthController {
   // Авторизировать пользователей
   @Post("login")
   async logIn(
-    @Body() user: UserAuthDto,
+    @Body(ValidationPipe) user: UserAuthDto,
     @Res() res,
     @Req() req,
     @Session() session
