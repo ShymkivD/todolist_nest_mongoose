@@ -10,9 +10,9 @@ import {
   UseGuards,
   ValidationPipe,
 } from "@nestjs/common";
-import { TodoService } from "../services/todo.service";
-import { Todo } from "../models/todo/todo.interface";
-import { TodoDto } from "../models/todo/todo.dto";
+import { TodoService } from "./todo.service";
+import { Todo } from "./todo.interface";
+import { TodoDto } from "./dto/todo.dto";
 
 import { AuthGuard } from "@nestjs/passport";
 
@@ -45,7 +45,7 @@ export class TodoController {
   }
 
   @Delete(":id")
-  async removeTodo(@Param() params, @Req() req) {
+  async removeTodo(@Param() params, @Req() req): Promise<void> {
     await this.todoService.removeTodo(params.id, req.user.userId);
   }
 

@@ -8,8 +8,8 @@ import {
   Session,
   ValidationPipe,
 } from "@nestjs/common";
-import { AuthService } from "../services/auth.service";
-import { UserAuthDto } from "../models/user/user.auth.dto";
+import { AuthService } from "./auth.service";
+import { UserAuthDto } from "../user/dto/user.auth.dto";
 
 @Controller("auth")
 export class AuthController {

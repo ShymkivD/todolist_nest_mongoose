@@ -1,12 +1,12 @@
 import { Module, NestModule, MiddlewareConsumer } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { TodoModule } from "./modules/todo.module";
-import { UserModule } from "./modules/user.module";
-import { AuthModule } from "./modules/auth.module";
+import { TodoModule } from "./todo/todo.module";
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
 
 import { CookieSessionMiddleware } from "@nest-middlewares/cookie-session";
 
-import { AuthController } from "./controllers/auth.controller";
+import { AuthController } from "./auth/auth.controller";
 
 @Module({
   imports: [

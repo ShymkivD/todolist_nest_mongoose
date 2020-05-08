@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { AuthController } from '../src/controllers/auth.controller';
+import { AuthController } from '../src/auth/auth.controller';
 import { AuthService } from '../src/services/auth.service';
 
 describe('Auth Controller', () => {

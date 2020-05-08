@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { TodoDto } from "../models/todo/todo.dto";
-import { Todo } from "../models/todo/todo.interface";
-import { User } from "../models/user/user.interface";
+import { TodoDto } from "./dto/todo.dto";
+import { Todo } from "./todo.interface";
+import { User } from "../user/user.interface";
 
 const shortid = require("shortid");
 
@@ -66,7 +66,7 @@ export class TodoService {
   // Выполнить пункт с todolist
   async markAsDone(id: String, userId: String): Promise<Todo> {
     const { todos } = await this.userModel.findById(userId, "todos");
-    const todo = todos.filter((todo) => todo.id === id)[0];
+    const [todo] = todos.filter((todo) => todo.id === id);
     await this.userModel
       .findById(userId, "todos")
       .updateOne(
